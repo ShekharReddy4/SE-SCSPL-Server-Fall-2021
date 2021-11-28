@@ -21,10 +21,20 @@ namespace shekhar_sample_webapi
         }
 
         public IConfiguration Configuration { get; }
-
+        readonly string MyPolicyName = "_MyPolicyName";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyPolicyName,
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
             services.AddControllers();
         }
 
@@ -35,6 +45,7 @@ namespace shekhar_sample_webapi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(MyPolicyName);
 
             app.UseHttpsRedirection();
 
