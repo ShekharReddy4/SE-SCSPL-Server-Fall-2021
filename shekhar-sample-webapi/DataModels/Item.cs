@@ -11,5 +11,6 @@ namespace shekhar_sample_webapi.DataModels
         public string Name { get; set; }
         public int Discount { get; set; }
         public int StockCount { get; set; }
+        public int Price { get; set; }
     }
 }

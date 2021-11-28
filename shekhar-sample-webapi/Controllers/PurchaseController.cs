@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using shekhar_sample_webapi.DataModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,16 +40,37 @@ namespace shekhar_sample_webapi.Controllers
             var IDsArray = pmObject[0].items.Select(x => x.ID).ToList();
 
             // get those products from json file and update the stock and then rewrite
-           // string filepath = "./Data/data.json";
+            // string filepath = "./Data/data.json";
             //string json = File.ReadAllText("settings.json");
             //dynamic jsonObj = JsonConvert.DeserializeObject(json);
             //jsonObj["Bots"][0]["Password"] = "new password";
             //string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
-           // object p = File.WriteAllText("settings.json", output);
+            // object p = File.WriteAllText("settings.json", output);
+            /*
+            using (StreamReader r = new StreamReader("./Data/data.json"))
+            {
+                var json = r.ReadToEnd();
+                var jobj = JObject.Parse(json);
+                JArray itemsArray = (JArray)jobj["Items"];
+                foreach (JObject item in itemsArray) // <-- Note that here we used JObject instead of usual JProperty
+                {
+                    if (IDsArray.Contains((int)item.GetValue("ID")))
+                    {
+                        item.
+                    }
+                    string name = item.GetValue("name").ToString();
+                    string url = item.GetValue("url").ToString();
+                    // ...
+                }
 
-            
 
-            // 
+
+                List<Item> li = JsonConvert.DeserializeObject<List<Item>>(itemsArray.ToString());
+                items = li.SingleOrDefault(x => x.ID == id);
+
+            }*/
+
+
 
         }
 

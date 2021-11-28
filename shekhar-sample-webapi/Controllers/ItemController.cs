@@ -26,9 +26,9 @@ namespace shekhar_sample_webapi.Controllers
             using (StreamReader r = new StreamReader(filepath))
             {
                 json = r.ReadToEnd();
-                Console.WriteLine(json);
+                //Console.WriteLine(json);
                 var jobj = JObject.Parse(json);
-                Console.WriteLine(jobj);
+                //Console.WriteLine(jobj);
                 
                 //var jobj = JObject.Parse(json);
                 //foreach (var item in jobj.Properties())
