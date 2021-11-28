@@ -12,5 +12,6 @@ namespace shekhar_sample_webapi.DataModels
         public int Discount { get; set; }
         public int StockCount { get; set; }
         public int Price { get; set; }
+        public bool IsScalable { get; set; }
     }
 }

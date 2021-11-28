@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -32,21 +33,71 @@ namespace shekhar_sample_webapi.Controllers
 
         // POST api/<PurchaseController>
         [HttpPost]
-        public void Post([FromBody] string purchase_object)
+        public bool Post([FromBody]PurchaseModel purchase_object)
         {
-            List<PurchaseModel> pmObject = JsonConvert.DeserializeObject<List<PurchaseModel>>(purchase_object.ToString());
+            // card details verification
+            bool isPaymentSucccessful = false;
+            if(purchase_object.cardDetailsArray != null)
+            {
+                using (StreamReader r = new StreamReader("./Data/data.json"))
+                {
+                    var json = r.ReadToEnd();
+                    var jobj = JObject.Parse(json);
+                    JArray cardDetailsArray = (JArray)jobj["cardDetailsArray"];
+                    foreach (JObject i in cardDetailsArray) // <-- Note that here we used JObject instead of usual JProperty
+                    {
+                        var tempCardDetailsObj = JsonConvert.DeserializeObject<CardDetails>(i.ToString());
+                        if (purchase_object.cardDetailsArray.Contains(tempCardDetailsObj))
+                        {
+                            isPaymentSucccessful = true;
+                        }
+                    }
+                }
+            }
+            // Check payment details verification
+            else if (purchase_object.checkidArray != null)
+            {
+                using (StreamReader r = new StreamReader("./Data/data.json"))
+                {
+                    var json = r.ReadToEnd();
+                    var jobj = JObject.Parse(json);
+                    JArray checkidarray = (JArray)jobj["checkidarray"];
+                    foreach (JObject i in checkidarray) // <-- Note that here we used JObject instead of usual JProperty
+                    {
+                        var tempCardDetailsObj = JsonConvert.DeserializeObject<int>(i.ToString());
+                        if (purchase_object.checkidArray.Contains((int)i))
+                        {
+                            isPaymentSucccessful = true;
+                        }
+                    }
+                }
+            }
+            // check if cash option is enabled
+            else if (purchase_object.iscash)
+            {
+                isPaymentSucccessful = true;
+            }
+            else
+            {
+                isPaymentSucccessful = false;
+            }
 
-            // get the ids of the items array
-            var IDsArray = pmObject[0].items.Select(x => x.ID).ToList();
+            if(isPaymentSucccessful)
+            {
+                UpdateStockCount(purchase_object);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-            // get those products from json file and update the stock and then rewrite
-            // string filepath = "./Data/data.json";
-            //string json = File.ReadAllText("settings.json");
-            //dynamic jsonObj = JsonConvert.DeserializeObject(json);
-            //jsonObj["Bots"][0]["Password"] = "new password";
-            //string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
-            // object p = File.WriteAllText("settings.json", output);
-            /*
+        public void UpdateStockCount(PurchaseModel purchase_object)
+        {
+            // get the ids of the items array and reduce the stock count
+            var itemIDsArray = purchase_object.Items.Select(x => x.ID).ToList();
+
             using (StreamReader r = new StreamReader("./Data/data.json"))
             {
                 var json = r.ReadToEnd();
@@ -54,24 +105,19 @@ namespace shekhar_sample_webapi.Controllers
                 JArray itemsArray = (JArray)jobj["Items"];
                 foreach (JObject item in itemsArray) // <-- Note that here we used JObject instead of usual JProperty
                 {
-                    if (IDsArray.Contains((int)item.GetValue("ID")))
+                    if (itemIDsArray.Contains((int)item.GetValue("ID")))
                     {
-                        item.
+                        int existingStockCount = (int)item.GetValue("StockCount");
+                        int currentStockCount = existingStockCount - 1;
+                        JToken SCToken = item.SelectToken("StockCount");
+                        SCToken.Replace(currentStockCount);
                     }
-                    string name = item.GetValue("name").ToString();
-                    string url = item.GetValue("url").ToString();
-                    // ...
+
                 }
+                string output = JsonConvert.SerializeObject(jobj, Formatting.Indented);
+                System.IO.File.WriteAllText("./Data/data.json", output);
 
-
-
-                List<Item> li = JsonConvert.DeserializeObject<List<Item>>(itemsArray.ToString());
-                items = li.SingleOrDefault(x => x.ID == id);
-
-            }*/
-
-
-
+            }
         }
 
         // PUT api/<PurchaseController>/5

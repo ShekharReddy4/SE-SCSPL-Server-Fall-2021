@@ -7,9 +7,10 @@ namespace shekhar_sample_webapi.DataModels
 {
     public class PurchaseModel
     {
-        public List<Item> items { get; set; }
-        public CardDetails cd { get; set; }
-        public int coupon_number { get; set; }
-        public bool loyality { get; set; }
+        public List<Item> Items { get; set; }
+        public List<CardDetails> cardDetailsArray { get; set; }
+        public List<int> checkidArray { get; set; }
+        public bool iscash { get; set; }
+        
     }
 }

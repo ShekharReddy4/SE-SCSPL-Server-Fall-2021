@@ -3,45 +3,83 @@
     {
       "ID": 1234545,
       "Name": "twinkies",
-      "StockCount": 23,
+      "StockCount": 20,
       "Discount": 0,
-      "Price": 12
+      "Price": 12,
+      "IsScalable": false
     },
     {
       "ID": 1234546,
-      "Name": "twinkiesdddddddddddd",
-      "StockCount": 23,
+      "Name": "tomatoes",
+      "StockCount": 20,
       "Discount": 0,
-      "Price": 12
+      "Price": 12,
+      "IsScalable": true
     },
     {
       "ID": 1234547,
-      "Name": "twinkies",
-      "StockCount": 23,
+      "Name": "mno",
+      "StockCount": 20,
       "Discount": 0,
-      "Price": 12
+      "Price": 12,
+      "IsScalable": true
     },
     {
       "ID": 1234548,
-      "Name": "twinkies",
+      "Name": "onions",
       "StockCount": 23,
       "Discount": 0,
-      "Price": 12
+      "Price": 12,
+      "IsScalable": true
     },
     {
       "ID": 1234549,
-      "Name": "twinkies",
+      "Name": "xyz",
       "StockCount": 23,
       "Discount": 0,
-      "Price": 12
+      "Price": 12,
+      "IsScalable": false
     },
     {
       "ID": 1234550,
-      "Name": "twinkies",
+      "Name": "abc",
       "StockCount": 23,
       "Discount": 0,
-      "Price": 12
+      "Price": 12,
+      "IsScalable": false
     }
-  ]
-
+  ],
+  "cardDetailsArray": [
+    {
+      "card_number": "3433212267869876",
+      "name_on_card": "shekhar",
+      "cvv": "123",
+      "expiry": "23/10"
+    },
+    {
+      "card_number": "123456789012",
+      "name_on_card": "andrian",
+      "cvv": "456",
+      "expiry": "23/09"
+    },
+    {
+      "card_number": "234567890123",
+      "name_on_card": "pavan",
+      "cvv": "789",
+      "expiry": "23/07"
+    },
+    {
+      "card_number": "111111111111",
+      "name_on_card": "kedhar",
+      "cvv": "111",
+      "expiry": "23/08"
+    }
+  ],
+  "checkidArray": [
+    1234,
+    5678,
+    8765,
+    4321
+  ],
+  "iscash": false
 }
