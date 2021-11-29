@@ -3,7 +3,7 @@
     {
       "ID": 1234545,
       "Name": "twinkies",
-      "StockCount": 20,
+      "StockCount": 19,
       "Discount": 0,
       "Price": 12,
       "IsScalable": false
@@ -11,7 +11,7 @@
     {
       "ID": 1234546,
       "Name": "tomatoes",
-      "StockCount": 20,
+      "StockCount": 19,
       "Discount": 0,
       "Price": 12,
       "IsScalable": true
@@ -19,7 +19,7 @@
     {
       "ID": 1234547,
       "Name": "mno",
-      "StockCount": 20,
+      "StockCount": 19,
       "Discount": 0,
       "Price": 12,
       "IsScalable": true

@@ -61,9 +61,10 @@ namespace shekhar_sample_webapi.Controllers
                 {
                     var json = r.ReadToEnd();
                     var jobj = JObject.Parse(json);
-                    JArray checkidarray = (JArray)jobj["checkidarray"];
-                    foreach (JObject i in checkidarray) // <-- Note that here we used JObject instead of usual JProperty
+                    JArray checkidarray = (JArray)jobj["checkidArray"];
+                    foreach (var i in checkidarray) // <-- Note that here we used JObject instead of usual JProperty
                     {
+                        int x = (int)i;
                         var tempCardDetailsObj = JsonConvert.DeserializeObject<int>(i.ToString());
                         if (purchase_object.checkidArray.Contains((int)i))
                         {
